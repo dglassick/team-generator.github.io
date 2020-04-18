@@ -34,7 +34,7 @@ async function allEmployees() {
         {
             type: 'input',
             message: "What is the employee's ID number?",
-            name: 'id',
+            name: 'idNumber',
             checkforInput: function checkInput(name) {
                 if (name !== '') {
                     return name
@@ -55,7 +55,7 @@ async function allEmployees() {
 async function employeeRole(e) {
     const {
         name,
-        id,
+        idNumber,
         email,
         role
     } = e;
@@ -63,21 +63,21 @@ async function employeeRole(e) {
         case 'Manager':
             return managerQuestion({
                 name,
-                id,
+                idNumber,
                 email,
                 role
             });
         case 'Engineer':
             return engineerQuestion({
                 name,
-                id,
+                idNumber,
                 email,
                 role
             });
         case 'Inter':
             return internQuestion({
                 name,
-                id,
+                idNumber,
                 email,
                 role
             });
@@ -91,7 +91,7 @@ async function employeeRole(e) {
 async function managerQuestion(data) {
     const {
         name,
-        id,
+        idNumber,
         email
     } = data;
     const managerResponse = await inquirer.prompt([{
@@ -109,7 +109,7 @@ async function managerQuestion(data) {
     } = managerResponse;
 
     // creates the new manager variable with all the information that correlates.
-    const newManager = new Manager(name, id, email, officeNumber)
+    const newManager = new Manager(name, idNumber, email, officeNumber)
 
     return newManager
 };
@@ -118,13 +118,13 @@ async function managerQuestion(data) {
 async function engineerQuestion(data) {
     const {
         name,
-        id,
+        idNumber,
         email
     } = data;
     const engineerResponse = await inquirer.prompt([{
         type: 'input',
         message: "What is the employee's github username?",
-        name: 'github',
+        name: 'githubId',
         checkforInput: function checkInput(name) {
             if (name !== '') {
                 return name
@@ -136,7 +136,7 @@ async function engineerQuestion(data) {
     } = engineerResponse;
 
     // creates the new engineer variable with all the information that correlates.
-    const newEngineer = new Engineer(name, id, email, githubId)
+    const newEngineer = new Engineer(name, idNumber, email, githubId)
 
     return newEngineer;
 };
@@ -145,7 +145,7 @@ async function engineerQuestion(data) {
 async function internQuestion(data) {
     const {
         name,
-        id,
+        idNumber,
         email
     } = data;
     const internResponse = await inquirer.prompt([{
@@ -163,7 +163,7 @@ async function internQuestion(data) {
     } = internResponse;
 
     // creates the new intern variable with all the information that correlates.
-    const newIntern = new Intern(name, id, email, school)
+    const newIntern = new Intern(name, idNumber, email, school)
 
     return newIntern;
 };
@@ -175,14 +175,14 @@ async function internQuestion(data) {
 async function startApp() {
     const {
         name,
-        id,
+        idNumber,
         email,
         role
     } = await allEmployees();
 
     return employeeRole({
         name,
-        id,
+        idNumber,
         email,
         role
     });
